@@ -1,0 +1,4 @@
+= form_for @message do |f|
+  = f.text_area :body, size: '60x10'
+  = f.hidden_field(:wall_id, value: @user.wall.id) 
+  %p= f.submit 'Add message'

@@ -3,5 +3,12 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-  has_one :wall
+  has_one :wall, dependent: :destroy
+  has_many :messages, dependent: :destroy
+
+  after_create :set_wall
+
+  def set_wall
+    Wall.create(user_id: self.id)
+  end
 end

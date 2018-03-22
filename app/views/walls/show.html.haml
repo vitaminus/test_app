@@ -1,2 +1,16 @@
-%h1 Walls#show
-%p Find me in app/views/walls/show.html.haml
+= back_to_root
+%h1= @user.email
+= render 'messages/form'
+- if @messages.present?
+  - @messages.each do |message|
+    %p= message.body
+    %span= message.created_at
+    - if @user.wall.id == message.wall_id
+      %span= link_to "Edit", edit_message_path(message)
+      %span= link_to "Delete", message, method: :delete, data: { confirm: 'Are you sure?' }
+    %p
+      Created by
+      = message.user.email
+    %hr
+- else
+  %p No messages yet
