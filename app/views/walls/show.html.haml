@@ -2,3 +2,4 @@
 %h1= @user.email
 = render 'messages/form'
 %ul= render partial: 'messages/message', collection: @messages, as: :message
+= paginate @messages
