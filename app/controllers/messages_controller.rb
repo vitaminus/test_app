@@ -18,12 +18,11 @@ class MessagesController < ApplicationController
   end
 
   def create
-    puts message_params
     @message = Message.new(message_params)
     @message.user = current_user
 
     if @message.save
-      redirect_to @message, notice: 'Message was successfully created.'
+      redirect_to request.referrer, notice: 'Message was successfully created.'
     else
       redirect_to request.referrer
     end
@@ -31,7 +30,7 @@ class MessagesController < ApplicationController
 
   def update
     if @message.update(message_params)
-      redirect_to @message, notice: 'Message was successfully updated.'
+      redirect_to request.referrer, notice: 'Message was successfully updated.'
     else
       redirect_to request.referrer
     end

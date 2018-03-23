@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   has_one :wall, dependent: :destroy
   has_many :messages, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   after_create :set_wall
 
