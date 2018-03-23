@@ -1,3 +1,3 @@
 = form_for [commentable, Comment.new] do |f|
-  = f.text_area :body, size: '30x5'
+  = f.text_area :body, size: '30x5', placeholder: 'Add comment'
   = f.submit 'Save'

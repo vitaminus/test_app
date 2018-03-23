@@ -1,13 +1,12 @@
 %li
   = time_ago_in_words(comment.created_at)
   ago by
-  = comment.user.email
-  ago
+  = link_to "#{comment.user.email}", wall_path(comment.user.wall.id)
   %br
   = comment.body
   .reply-button reply
   .reply-form
     = form_for [comment, Comment.new] do |f|
-      = f.text_area :body
+      = f.text_area :body, placeholder: 'Add reply for this comment'
       = f.submit
   %ul= render partial: 'comments/comment', collection: comment.comments, as: :comment
