@@ -1,0 +1,10 @@
+%p= message.body
+%ul= render partial: 'comments/comment', collection: message.comments, as: :comment
+%p= render 'comments/form', commentable: message
+%span= time_ago_in_words(message.created_at)
+ago by
+= message.user.email
+ago
+%span= link_to "Edit", edit_message_path(message)
+%span= link_to "Delete", message, method: :delete, data: { confirm: 'Are you sure?' }
+%hr

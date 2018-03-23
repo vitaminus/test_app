@@ -10,11 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180322113621) do
+ActiveRecord::Schema.define(version: 20180322200243) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "comments", force: :cascade do |t|
+    t.string "commentable_type"
+    t.bigint "commentable_id"
+    t.bigint "user_id"
+    t.text "body", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
 
   create_table "messages", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "wall_id"
+    t.bigint "user_id"
+    t.bigint "wall_id"
     t.text "body", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -40,10 +54,14 @@ ActiveRecord::Schema.define(version: 20180322113621) do
   end
 
   create_table "walls", force: :cascade do |t|
-    t.integer "user_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_walls_on_user_id"
   end
 
+  add_foreign_key "comments", "users"
+  add_foreign_key "messages", "users"
+  add_foreign_key "messages", "walls"
+  add_foreign_key "walls", "users"
 end

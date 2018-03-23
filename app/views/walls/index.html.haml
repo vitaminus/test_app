@@ -7,16 +7,4 @@
 - else
   %p Only you on this app ((
 = render 'messages/form'
-- if @messages.present?
-  - @messages.each do |message|
-    %p= message.body
-    %span= message.created_at
-    %span= link_to "Edit", edit_message_path(message)
-    %span= link_to "Delete", message, method: :delete, data: { confirm: 'Are you sure?' }
-    %p
-      Created by
-      = message.user.email
-    
-    %hr
-- else
-  %p No messages yet 
+%ul= render partial: 'messages/message', collection: @messages, as: :message

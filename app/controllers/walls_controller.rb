@@ -10,7 +10,6 @@ class WallsController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    # @walls = Wall.where('user_id != ?', @user.id)
     @messages = Message.where(wall_id: @user.wall.id)
     @message = Message.new
   end
