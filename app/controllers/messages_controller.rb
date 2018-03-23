@@ -18,7 +18,6 @@ class MessagesController < ApplicationController
   end
 
   def create
-    puts message_params
     @message = Message.new(message_params)
     @message.user = current_user
 
