@@ -9,4 +9,6 @@
     = form_for [comment, Comment.new] do |f|
       = f.text_area :body, placeholder: 'Add reply for this comment'
       = f.submit
-  %ul= render partial: 'comments/comment', collection: comment.comments, as: :comment
+  %ul
+    - comment.comments.each do |com|
+      = render partial: 'comments/comment', locals: { comment: com }
