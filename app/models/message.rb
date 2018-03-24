@@ -7,4 +7,6 @@ class Message < ApplicationRecord
   belongs_to :wall
 
   validates :body, presence: true
+
+  scope :with_comments, -> (user) { where(wall_id: user.wall.id).includes(comments: :comments).order(created_at: :desc) }
 end
